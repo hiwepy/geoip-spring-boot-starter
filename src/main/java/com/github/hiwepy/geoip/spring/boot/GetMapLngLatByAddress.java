@@ -1,4 +1,4 @@
-package com.github.vindell.geoip.spring.boot;
+package com.github.hiwepy.geoip.spring.boot;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSONObject;
-import com.github.vindell.httpconn.HttpConnectionUtils;
-import com.github.vindell.httpconn.handler.JSONResponseHandler;
+import com.github.hiwepy.httpconn.HttpConnectionUtils;
+import com.github.hiwepy.httpconn.handler.JSONResponseHandler;
 
 /**
  * 根据百度API地址获取经纬度

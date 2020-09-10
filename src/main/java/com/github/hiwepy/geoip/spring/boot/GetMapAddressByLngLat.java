@@ -1,4 +1,4 @@
-package com.github.vindell.geoip.spring.boot;
+package com.github.hiwepy.geoip.spring.boot;
 
 import java.io.BufferedReader;
 import java.io.IOException;

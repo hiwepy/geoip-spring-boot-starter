@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.github.vindell.geoip.spring.boot;
+package com.github.hiwepy.geoip.spring.boot;
 
 import java.io.File;
 import java.net.InetAddress;
@@ -21,20 +21,15 @@ import java.net.InetAddress;
 import org.junit.Test;
 
 import com.maxmind.geoip2.DatabaseReader;
-import com.maxmind.geoip2.model.AnonymousIpResponse;
-import com.maxmind.geoip2.model.ConnectionTypeResponse;
-import com.maxmind.geoip2.model.ConnectionTypeResponse.ConnectionType;
+import com.maxmind.geoip2.model.IspResponse;
 
-/**
- * https://github.com/maxmind/GeoIP2-java
- */
-public class GeoIP2City_Test {
+public class GeoIP2ISP_Test {
 	
 	@Test
 	public void testName() throws Exception {
 		
-		// A File object pointing to your GeoIP2 Connection-Type database
-		File database = new File("/path/to/GeoIP2-Connection-Type.mmdb");
+		// A File object pointing to your GeoIP2 ISP database
+		File database = new File("/path/to/GeoIP2-ISP.mmdb");
 
 		// This creates the DatabaseReader object. To improve performance, reuse
 		// the object across lookups. The object is thread-safe.
@@ -42,12 +37,12 @@ public class GeoIP2City_Test {
 
 		InetAddress ipAddress = InetAddress.getByName("128.101.101.101");
 
-		ConnectionTypeResponse response = reader.connectionType(ipAddress);
+		IspResponse response = reader.isp(ipAddress);
 
-		// getConnectionType() returns a ConnectionType enum
-		ConnectionType type = response.getConnectionType();
-
-		System.out.println(type); // 'Corporate'
+		System.out.println(response.getAutonomousSystemNumber());       // 217
+		System.out.println(response.getAutonomousSystemOrganization()); // 'University of Minnesota'
+		System.out.println(response.getIsp());                          // 'University of Minnesota'
+		System.out.println(response.getOrganization());                 // 'University of Minnesota'
 		
 	}
 	

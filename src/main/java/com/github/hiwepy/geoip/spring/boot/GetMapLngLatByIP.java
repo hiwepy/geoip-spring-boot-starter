@@ -1,15 +1,11 @@
-package com.github.vindell.geoip.spring.boot;
+package com.github.hiwepy.geoip.spring.boot;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.MalformedURLException;
-import java.net.URL;
 
 import com.alibaba.fastjson.JSONObject;
-import com.github.vindell.httpconn.HttpConnectionUtils;
-import com.github.vindell.httpconn.handler.JSONResponseHandler;
+import com.github.hiwepy.httpconn.HttpConnectionUtils;
+import com.github.hiwepy.httpconn.handler.JSONResponseHandler;
 
 /**
  * 根据百度API  IP获取经纬度

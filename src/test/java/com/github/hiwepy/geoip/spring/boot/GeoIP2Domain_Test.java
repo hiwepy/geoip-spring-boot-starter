@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.github.vindell.geoip.spring.boot;
+package com.github.hiwepy.geoip.spring.boot;
 
 import java.io.File;
 import java.net.InetAddress;
