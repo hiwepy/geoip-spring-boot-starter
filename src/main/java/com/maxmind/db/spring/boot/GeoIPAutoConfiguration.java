@@ -1,11 +1,11 @@
-package com.github.hiwepy.geoip.spring.boot;
+package com.maxmind.db.spring.boot;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.maxmind.db.CHMCache;
 import com.maxmind.db.NodeCache;
 import com.maxmind.geoip2.DatabaseReader;
@@ -21,22 +22,20 @@ import com.maxmind.geoip2.DatabaseReader;
  * 
  */
 @Configuration
-@ConditionalOnProperty(prefix = GeoIPProperties.PREFIX, value = "enabled", havingValue = "true")
+@ConditionalOnClass(DatabaseReader.class)
 @EnableConfigurationProperties({ GeoIPProperties.class })
 public class GeoIPAutoConfiguration implements ResourceLoaderAware {
 
 	private ResourceLoader resourceLoader;
-
-	@Autowired
-	private GeoIPProperties properties;
-
+	
 	@Bean
+	@ConditionalOnMissingBean
 	public NodeCache nodeCache() {
 		return new CHMCache();
 	}
-
+	
 	@Bean
-	public DatabaseReader geoip2Reader(NodeCache nodeCache) throws FileNotFoundException, IOException {
+	public DatabaseReader geoip2Reader(NodeCache nodeCache, GeoIPProperties properties) throws FileNotFoundException, IOException {
 		// A File object pointing to your GeoIP2 or GeoLite2 database
 		File database = new File(properties.getLocation());
 		if(database.exists()) {
@@ -53,10 +52,11 @@ public class GeoIPAutoConfiguration implements ResourceLoaderAware {
 			}
 		}
 	}
-
+	
 	@Bean
-	public GeoIPTemplate geoIPTemplate(DatabaseReader geoip2Reader) {
-		return new GeoIPTemplate(geoip2Reader);
+	@ConditionalOnMissingBean
+	public GeoIPTemplate geoIPTemplate(ObjectMapper objectMapper) {
+		return new GeoIPTemplate(objectMapper);
 	}
 
 	@Override

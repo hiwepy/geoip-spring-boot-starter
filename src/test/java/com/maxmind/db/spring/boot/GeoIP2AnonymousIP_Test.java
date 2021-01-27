@@ -13,16 +13,14 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.github.hiwepy.geoip.spring.boot;
+package com.maxmind.db.spring.boot;
 
-import java.io.IOException;
+import java.io.File;
 import java.net.InetAddress;
 
-import org.springframework.context.annotation.Bean;
+import org.junit.Test;
 
 import com.maxmind.geoip2.DatabaseReader;
-import com.maxmind.geoip2.exception.GeoIp2Exception;
-import com.maxmind.geoip2.model.AnonymousIpResponse;
 import com.maxmind.geoip2.model.CityResponse;
 import com.maxmind.geoip2.record.City;
 import com.maxmind.geoip2.record.Country;
@@ -30,48 +28,31 @@ import com.maxmind.geoip2.record.Location;
 import com.maxmind.geoip2.record.Postal;
 import com.maxmind.geoip2.record.Subdivision;
 
-public class GeoIPTemplate {
-
-	DatabaseReader geoip2Reader;
-
-	public GeoIPTemplate(DatabaseReader geoip2Reader) {
-		super();
-		this.geoip2Reader = geoip2Reader;
-	}
+public class GeoIP2AnonymousIP_Test {
 	
-	/**
-	 * TODO
-	 * @param ipAddress IPv4 or IPv6 address to lookup.
-	 * @return
-	 * @throws IOException
-	 * @throws GeoIp2Exception
-	 */
-	@Bean
-	public AnonymousIpResponse anonymousIp(String ipAddress) throws IOException, GeoIp2Exception {
-		return geoip2Reader.anonymousIp(InetAddress.getByName(ipAddress));
-	}
-	
-	/**
-	 * TODO
-	 * @param ipAddress IPv4 or IPv6 address to lookup.
-	 * @return
-	 * @throws IOException
-	 * @throws GeoIp2Exception
-	 */
-	@Bean
-	public CityResponse searchResponse(String ipAddress) throws IOException, GeoIp2Exception {
+	@Test
+	public void testName() throws Exception {
 		
-		
-		// Replace "city" with the appropriate method for your database, e.g., "country".
-		CityResponse response = geoip2Reader.city(InetAddress.getByName(ipAddress));
+		// A File object pointing to your GeoIP2 or GeoLite2 database
+		File database = new File("D:\\GeoLite2-City.mmdb");
+
+		// This creates the DatabaseReader object. To improve performance, reuse
+		// the object across lookups. The object is thread-safe.
+		DatabaseReader reader = new DatabaseReader.Builder(database).build();
+
+		InetAddress ipAddress = InetAddress.getByName("14.192.49.14");
+
+		// Replace "city" with the appropriate method for your database, e.g.,
+		// "country".
+		CityResponse response = reader.city(ipAddress);
 
 		Country country = response.getCountry();
-		System.out.println(country.getIsoCode()); // 'US'
-		System.out.println(country.getName()); // 'United States'
+		System.out.println(country.getIsoCode());            // 'US'
+		System.out.println(country.getName());               // 'United States'
 		System.out.println(country.getNames().get("zh-CN")); // '美国'
 
 		Subdivision subdivision = response.getMostSpecificSubdivision();
-		System.out.println(subdivision.getName()); // 'Minnesota'
+		System.out.println(subdivision.getName());    // 'Minnesota'
 		System.out.println(subdivision.getIsoCode()); // 'MN'
 
 		City city = response.getCity();
@@ -81,10 +62,10 @@ public class GeoIPTemplate {
 		System.out.println(postal.getCode()); // '55455'
 
 		Location location = response.getLocation();
-		System.out.println(location.getLatitude()); // 44.9733
+		System.out.println(location.getLatitude());  // 44.9733
 		System.out.println(location.getLongitude()); // -93.2323
-
-		return response;
+		
 	}
 	
+
 }

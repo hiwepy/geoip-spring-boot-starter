@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.github.hiwepy.geoip.spring.boot;
+package com.maxmind.db.spring.boot;
 
 import java.io.File;
 import java.net.InetAddress;
@@ -28,7 +28,7 @@ import com.maxmind.geoip2.record.Location;
 import com.maxmind.geoip2.record.Postal;
 import com.maxmind.geoip2.record.Subdivision;
 
-public class GeoIP2ConnectionType_Test {
+public class GeoIP2ASN_Test {
 	
 	@Test
 	public void testName() throws Exception {

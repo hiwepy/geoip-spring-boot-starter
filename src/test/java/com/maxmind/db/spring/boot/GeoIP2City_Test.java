@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.github.hiwepy.geoip.spring.boot;
+package com.maxmind.db.spring.boot;
 
 import java.io.File;
 import java.net.InetAddress;
@@ -21,15 +21,20 @@ import java.net.InetAddress;
 import org.junit.Test;
 
 import com.maxmind.geoip2.DatabaseReader;
-import com.maxmind.geoip2.model.DomainResponse;
+import com.maxmind.geoip2.model.AnonymousIpResponse;
+import com.maxmind.geoip2.model.ConnectionTypeResponse;
+import com.maxmind.geoip2.model.ConnectionTypeResponse.ConnectionType;
 
-public class GeoIP2Enterprise_Test {
+/**
+ * https://github.com/maxmind/GeoIP2-java
+ */
+public class GeoIP2City_Test {
 	
 	@Test
 	public void testName() throws Exception {
 		
-		// A File object pointing to your GeoIP2 Domain database
-		File database = new File("/path/to/GeoIP2-Domain.mmdb");
+		// A File object pointing to your GeoIP2 Connection-Type database
+		File database = new File("/path/to/GeoIP2-Connection-Type.mmdb");
 
 		// This creates the DatabaseReader object. To improve performance, reuse
 		// the object across lookups. The object is thread-safe.
@@ -37,9 +42,12 @@ public class GeoIP2Enterprise_Test {
 
 		InetAddress ipAddress = InetAddress.getByName("128.101.101.101");
 
-		DomainResponse response = reader.domain(ipAddress);
+		ConnectionTypeResponse response = reader.connectionType(ipAddress);
 
-		System.out.println(response.getDomain()); // 'Corporate'
+		// getConnectionType() returns a ConnectionType enum
+		ConnectionType type = response.getConnectionType();
+
+		System.out.println(type); // 'Corporate'
 		
 	}
 	

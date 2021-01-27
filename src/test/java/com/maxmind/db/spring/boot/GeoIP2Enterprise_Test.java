@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.github.hiwepy.geoip.spring.boot;
+package com.maxmind.db.spring.boot;
 
 import java.io.File;
 import java.net.InetAddress;
@@ -21,15 +21,15 @@ import java.net.InetAddress;
 import org.junit.Test;
 
 import com.maxmind.geoip2.DatabaseReader;
-import com.maxmind.geoip2.model.IspResponse;
+import com.maxmind.geoip2.model.DomainResponse;
 
-public class GeoIP2ISP_Test {
+public class GeoIP2Enterprise_Test {
 	
 	@Test
 	public void testName() throws Exception {
 		
-		// A File object pointing to your GeoIP2 ISP database
-		File database = new File("/path/to/GeoIP2-ISP.mmdb");
+		// A File object pointing to your GeoIP2 Domain database
+		File database = new File("/path/to/GeoIP2-Domain.mmdb");
 
 		// This creates the DatabaseReader object. To improve performance, reuse
 		// the object across lookups. The object is thread-safe.
@@ -37,12 +37,9 @@ public class GeoIP2ISP_Test {
 
 		InetAddress ipAddress = InetAddress.getByName("128.101.101.101");
 
-		IspResponse response = reader.isp(ipAddress);
+		DomainResponse response = reader.domain(ipAddress);
 
-		System.out.println(response.getAutonomousSystemNumber());       // 217
-		System.out.println(response.getAutonomousSystemOrganization()); // 'University of Minnesota'
-		System.out.println(response.getIsp());                          // 'University of Minnesota'
-		System.out.println(response.getOrganization());                 // 'University of Minnesota'
+		System.out.println(response.getDomain()); // 'Corporate'
 		
 	}
 	
