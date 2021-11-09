@@ -18,6 +18,7 @@ package com.maxmind.db.spring.boot;
 import java.io.File;
 import java.net.InetAddress;
 
+import com.maxmind.geoip2.model.AnonymousIpResponse;
 import org.junit.Test;
 
 import com.maxmind.geoip2.DatabaseReader;
@@ -27,45 +28,37 @@ import com.maxmind.geoip2.record.Country;
 import com.maxmind.geoip2.record.Location;
 import com.maxmind.geoip2.record.Postal;
 import com.maxmind.geoip2.record.Subdivision;
-
+/**
+ * https://github.com/maxmind/GeoIP2-java
+ */
 public class GeoIP2AnonymousIP_Test {
-	
+
 	@Test
 	public void testName() throws Exception {
-		
-		// A File object pointing to your GeoIP2 or GeoLite2 database
-		File database = new File("D:\\GeoLite2-City.mmdb");
+
+		// A File object pointing to your GeoIP2 Anonymous IP database
+		File database = new File("/path/to/GeoIP2-Anonymous-IP.mmdb");
 
 		// This creates the DatabaseReader object. To improve performance, reuse
 		// the object across lookups. The object is thread-safe.
 		DatabaseReader reader = new DatabaseReader.Builder(database).build();
 
-		InetAddress ipAddress = InetAddress.getByName("14.192.49.14");
+		try {
+			InetAddress ipAddress = InetAddress.getByName("85.25.43.84");
 
-		// Replace "city" with the appropriate method for your database, e.g.,
-		// "country".
-		CityResponse response = reader.city(ipAddress);
+			AnonymousIpResponse response = reader.anonymousIp(ipAddress);
 
-		Country country = response.getCountry();
-		System.out.println(country.getIsoCode());            // 'US'
-		System.out.println(country.getName());               // 'United States'
-		System.out.println(country.getNames().get("zh-CN")); // '美国'
+			System.out.println(response.isAnonymous()); // true
+			System.out.println(response.isAnonymousVpn()); // false
+			System.out.println(response.isHostingProvider()); // false
+			System.out.println(response.isPublicProxy()); // false
+			System.out.println(response.isResidentialProxy()); // false
+			System.out.println(response.isTorExitNode()); //true
+		} finally {
+			reader.close();
+		}
 
-		Subdivision subdivision = response.getMostSpecificSubdivision();
-		System.out.println(subdivision.getName());    // 'Minnesota'
-		System.out.println(subdivision.getIsoCode()); // 'MN'
-
-		City city = response.getCity();
-		System.out.println(city.getName()); // 'Minneapolis'
-
-		Postal postal = response.getPostal();
-		System.out.println(postal.getCode()); // '55455'
-
-		Location location = response.getLocation();
-		System.out.println(location.getLatitude());  // 44.9733
-		System.out.println(location.getLongitude()); // -93.2323
-		
 	}
-	
+
 
 }

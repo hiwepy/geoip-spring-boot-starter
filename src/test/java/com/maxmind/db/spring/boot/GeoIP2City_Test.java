@@ -18,6 +18,8 @@ package com.maxmind.db.spring.boot;
 import java.io.File;
 import java.net.InetAddress;
 
+import com.maxmind.geoip2.model.CityResponse;
+import com.maxmind.geoip2.record.*;
 import org.junit.Test;
 
 import com.maxmind.geoip2.DatabaseReader;
@@ -29,12 +31,12 @@ import com.maxmind.geoip2.model.ConnectionTypeResponse.ConnectionType;
  * https://github.com/maxmind/GeoIP2-java
  */
 public class GeoIP2City_Test {
-	
+
 	@Test
 	public void testName() throws Exception {
-		
-		// A File object pointing to your GeoIP2 Connection-Type database
-		File database = new File("/path/to/GeoIP2-Connection-Type.mmdb");
+
+		// A File object pointing to your GeoIP2 or GeoLite2 database
+		File database = new File("D:\\geoip\\GeoLite2-City.mmdb");
 
 		// This creates the DatabaseReader object. To improve performance, reuse
 		// the object across lookups. The object is thread-safe.
@@ -42,14 +44,30 @@ public class GeoIP2City_Test {
 
 		InetAddress ipAddress = InetAddress.getByName("128.101.101.101");
 
-		ConnectionTypeResponse response = reader.connectionType(ipAddress);
+		// Replace "city" with the appropriate method for your database, e.g.,
+		// "country".
+		CityResponse response = reader.city(ipAddress);
 
-		// getConnectionType() returns a ConnectionType enum
-		ConnectionType type = response.getConnectionType();
+		Country country = response.getCountry();
+		System.out.println(country.getIsoCode());            // 'US'
+		System.out.println(country.getName());               // 'United States'
+		System.out.println(country.getNames().get("zh-CN")); // '美国'
 
-		System.out.println(type); // 'Corporate'
-		
+		Subdivision subdivision = response.getMostSpecificSubdivision();
+		System.out.println(subdivision.getName());    // 'Minnesota'
+		System.out.println(subdivision.getIsoCode()); // 'MN'
+
+		City city = response.getCity();
+		System.out.println(city.getName()); // 'Minneapolis'
+
+		Postal postal = response.getPostal();
+		System.out.println(postal.getCode()); // '55447'
+
+		Location location = response.getLocation();
+		System.out.println(location.getLatitude());  // 45.0027
+		System.out.println(location.getLongitude()); // -93.4881
+
 	}
-	
+
 
 }

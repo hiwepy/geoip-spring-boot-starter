@@ -18,30 +18,55 @@ package com.maxmind.db.spring.boot;
 import java.io.File;
 import java.net.InetAddress;
 
+import com.maxmind.geoip2.model.EnterpriseResponse;
+import com.maxmind.geoip2.record.*;
 import org.junit.Test;
 
 import com.maxmind.geoip2.DatabaseReader;
 import com.maxmind.geoip2.model.DomainResponse;
 
 public class GeoIP2Enterprise_Test {
-	
+
 	@Test
 	public void testName() throws Exception {
-		
-		// A File object pointing to your GeoIP2 Domain database
-		File database = new File("/path/to/GeoIP2-Domain.mmdb");
+
+		// A File object pointing to your GeoIP2 Enterprise database
+		File database = new File("/path/to/GeoIP2-Enterprise.mmdb");
 
 		// This creates the DatabaseReader object. To improve performance, reuse
 		// the object across lookups. The object is thread-safe.
-		DatabaseReader reader = new DatabaseReader.Builder(database).build();
+		try (DatabaseReader reader = new DatabaseReader.Builder(database).build()) {
+			InetAddress ipAddress = InetAddress.getByName("128.101.101.101");
 
-		InetAddress ipAddress = InetAddress.getByName("128.101.101.101");
+			//  Use the enterprise(ip) method to do a lookup in the Enterprise database
+			EnterpriseResponse response = reader.enterprise(ipAddress);
 
-		DomainResponse response = reader.domain(ipAddress);
+			Country country = response.getCountry();
+			System.out.println(country.getIsoCode());            // 'US'
+			System.out.println(country.getName());               // 'United States'
+			System.out.println(country.getNames().get("zh-CN")); // '美国'
+			System.out.println(country.getConfidence());         // 99
 
-		System.out.println(response.getDomain()); // 'Corporate'
-		
+			Subdivision subdivision = response.getMostSpecificSubdivision();
+			System.out.println(subdivision.getName());           // 'Minnesota'
+			System.out.println(subdivision.getIsoCode());        // 'MN'
+			System.out.println(subdivision.getConfidence());     // 77
+
+			City city = response.getCity();
+			System.out.println(city.getName());       // 'Minneapolis'
+			System.out.println(city.getConfidence()); // 11
+
+			Postal postal = response.getPostal();
+			System.out.println(postal.getCode()); // '55455'
+			System.out.println(postal.getConfidence()); // 5
+
+			Location location = response.getLocation();
+			System.out.println(location.getLatitude());  // 44.9733
+			System.out.println(location.getLongitude()); // -93.2323
+			System.out.println(location.getAccuracyRadius()); // 50
+		}
+
 	}
-	
+
 
 }

@@ -29,15 +29,21 @@ import com.maxmind.geoip2.record.Country;
 import com.maxmind.geoip2.record.Location;
 import com.maxmind.geoip2.record.Postal;
 import com.maxmind.geoip2.record.Subdivision;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 public class GeoIPTemplate {
 
+	protected ResourceLoader resourceLoader = new PathMatchingResourcePatternResolver();
+
 	private final ObjectMapper objectMapper;
-	
-	public GeoIPTemplate(ObjectMapper objectMapper) {
+	private final DatabaseReader dbReader;
+
+	public GeoIPTemplate(ObjectMapper objectMapper, DatabaseReader dbReader) {
 		this.objectMapper = objectMapper;
+		this.dbReader = dbReader;
 	}
-	
+
 	/**
 	 * TODO
 	 * @param ipAddress IPv4 or IPv6 address to lookup.
@@ -45,14 +51,14 @@ public class GeoIPTemplate {
 	 * @throws IOException
 	 * @throws GeoIp2Exception
 	 */
-	public Optional<AnonymousIpResponse> anonymousIp(DatabaseReader dbReader, String ipAddress) throws IOException, GeoIp2Exception {
-		return this.anonymousIp(dbReader, InetAddress.getByName(ipAddress));
+	public Optional<AnonymousIpResponse> anonymousIp(String ipAddress) throws IOException, GeoIp2Exception {
+		return this.anonymousIp(InetAddress.getByName(ipAddress));
 	}
-	
-	public Optional<AnonymousIpResponse> anonymousIp(DatabaseReader dbReader, InetAddress ipAddress) throws IOException, GeoIp2Exception {
+
+	public Optional<AnonymousIpResponse> anonymousIp(InetAddress ipAddress) throws IOException, GeoIp2Exception {
 		return dbReader.tryAnonymousIp(ipAddress);
 	}
-	
+
 	/**
 	 * TODO
 	 * @param ipAddress IPv4 or IPv6 address to lookup.
@@ -60,9 +66,9 @@ public class GeoIPTemplate {
 	 * @throws IOException
 	 * @throws GeoIp2Exception
 	 */
-	public CityResponse searchResponse(DatabaseReader dbReader, String ipAddress) throws IOException, GeoIp2Exception {
-		
-		
+	public CityResponse searchResponse(String ipAddress) throws IOException, GeoIp2Exception {
+
+
 		// Replace "city" with the appropriate method for your database, e.g., "country".
 		CityResponse response = dbReader.city(InetAddress.getByName(ipAddress));
 
@@ -87,10 +93,10 @@ public class GeoIPTemplate {
 
 		return response;
 	}
-	
+
 	/**
-     * 
-     * @description: 获得国家 
+     *
+     * @description: 获得国家
      * @param dbReader
      * @param ip
      * @return
@@ -101,8 +107,8 @@ public class GeoIPTemplate {
     }
 
     /**
-     * 
-     * @description: 获得省份 
+     *
+     * @description: 获得省份
      * @param dbReader
      * @param ip
      * @return
@@ -113,8 +119,8 @@ public class GeoIPTemplate {
     }
 
     /**
-     * 
-     * @description: 获得城市 
+     *
+     * @description: 获得城市
      * @param dbReader
      * @param ip
      * @return
@@ -123,21 +129,21 @@ public class GeoIPTemplate {
     public static String getCity(DatabaseReader dbReader, String ip) throws Exception {
         return dbReader.city(InetAddress.getByName(ip)).getCity().getNames().get("zh-CN");
     }
-    
+
     /**
-     * 
-     * @description: 获得经度 
+     *
+     * @description: 获得经度
      * @param dbReader
      * @param ip
      * @return
      * @throws Exception
      */
-    public static Double getLongitude(DatabaseReader dbReader, String ip) throws Exception {
-        return dbReader.city(InetAddress.getByName(ip)).getLocation().getLongitude();
+    public Location getGeoLocation(String ip) throws Exception {
+        return dbReader.city(InetAddress.getByName(ip)).getLocation();
     }
-    
+
     /**
-     * 
+     *
      * @description: 获得纬度
      * @param dbReader
      * @param ip
@@ -147,9 +153,9 @@ public class GeoIPTemplate {
     public static Double getLatitude(DatabaseReader dbReader, String ip) throws Exception {
         return dbReader.city(InetAddress.getByName(ip)).getLocation().getLatitude();
     }
-    
+
 	public ObjectMapper getObjectMapper() {
 		return objectMapper;
 	}
-	
+
 }
