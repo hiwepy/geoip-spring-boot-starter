@@ -11,6 +11,6 @@ public class GeoIPProperties {
 	public static final String PREFIX = "geoip2";
 
 	/** GeoIP2 or GeoLite2 Database Location */
-	private String location = "classpath*:GeoLite2-Country.mmdb";
-	
+	private String location = "classpath:GeoLite2-Country.mmdb";
+
 }
