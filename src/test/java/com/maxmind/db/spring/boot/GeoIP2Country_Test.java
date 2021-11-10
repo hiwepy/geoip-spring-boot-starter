@@ -41,8 +41,7 @@ public class GeoIP2Country_Test {
 
 		InetAddress ipAddress = InetAddress.getByName("128.101.101.101");
 
-		// Replace "city" with the appropriate method for your database, e.g.,
-		// "country".
+		// Replace "city" with the appropriate method for your database, e.g., "country".
 		CountryResponse response = reader.country(ipAddress);
 
 		Country country = response.getCountry();
