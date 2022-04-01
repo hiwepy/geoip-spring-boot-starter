@@ -14,7 +14,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import com.maxmind.db.NodeCache;
-import com.maxmind.db.spring.boot.cache.GuavaCache;
+import com.maxmind.db.spring.boot.cache.CaffeineNodeCache;
 import com.maxmind.geoip2.DatabaseReader;
 
 /**
@@ -30,7 +30,7 @@ public class GeoIP2AutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public NodeCache nodeCache() {
-		return new GuavaCache();
+		return new CaffeineNodeCache();
 	}
 
 	@Bean

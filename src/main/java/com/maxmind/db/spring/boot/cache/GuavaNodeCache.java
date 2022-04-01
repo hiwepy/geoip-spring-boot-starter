@@ -33,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author 		： <a href="https://github.com/hiwepy">hiwepy</a>
  */
 @Slf4j
-public class GuavaCache implements NodeCache {
+public class GuavaNodeCache implements NodeCache {
 
     private static final int DEFAULT_CAPACITY = 4096;
     private static final int DEFAULT_MAXIMUM_SIZE = DEFAULT_CAPACITY * 8;
@@ -44,11 +44,11 @@ public class GuavaCache implements NodeCache {
     private final Cache<Object, Object> cache;
     private boolean cacheFull = false;
 
-    public GuavaCache() {
+    public GuavaNodeCache() {
         this(DEFAULT_CAPACITY, DEFAULT_MAXIMUM_SIZE, DEFAULT_EXPIRE_DURATION, DEFAULT_EXPIRE_UNIT);
     }
     
-    public GuavaCache(int capacity, int maximumSize, long duration, TimeUnit unit) {
+    public GuavaNodeCache(int capacity, int maximumSize, long duration, TimeUnit unit) {
         this.capacity = capacity;
         this.cache = CacheBuilder.newBuilder()
         		.initialCapacity(capacity)
@@ -65,7 +65,8 @@ public class GuavaCache implements NodeCache {
         		.build();
     }
 
-    @Override
+	@Override
+    @SuppressWarnings("rawtypes")
     public DecodedValue get(CacheKey key, Loader loader) throws IOException {
         Object value = cache.getIfPresent(key);
         if (value == null) {
