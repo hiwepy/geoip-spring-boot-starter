@@ -414,6 +414,7 @@
         <maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
         <maven-surefire-plugin.vertsion>2.21.0</maven-surefire-plugin.vertsion>
         <maven-nexus-staging-plugin.version>1.6.8</maven-nexus-staging-plugin.version>
+                <geo.version>0.3.3-NB80</geo.version>
     </properties>
 
     <dependencyManagement>
@@ -438,7 +439,12 @@
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
             </dependency>
-        </dependencies>
+                <dependency>
+            <groupId>eu.limetri.api</groupId>
+            <artifactId>geo</artifactId>
+            <version>${geo.version}</version>
+        </dependency>
+</dependencies>
     </dependencyManagement>
 
     <dependencies>
@@ -507,7 +513,7 @@
         <!-- <dependency>
             <groupId>eu.limetri.api</groupId>
             <artifactId>geo</artifactId>
-            <version>0.3.3-NB80</version>
+            <version>${geo.version}</version>
         </dependency> -->
 
         <!-- https://mvnrepository.com/artifact/com.maxmind.geoip2/geoip2 -->
