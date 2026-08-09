@@ -26,14 +26,16 @@ import com.maxmind.db.CacheKey;
 import com.maxmind.db.DecodedValue;
 import com.maxmind.db.NodeCache;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * TODO
+ * Caffeine-based NodeCache implementation for MaxMind database.
  * @author [@Loong Wan](https://github.com/loong10k)
  */
-@Slf4j
 public class CaffeineNodeCache implements NodeCache {
+
+    private static final Logger log = LoggerFactory.getLogger(CaffeineNodeCache.class);
 
     private static final int DEFAULT_CAPACITY = 4096;
     private static final int DEFAULT_MAXIMUM_SIZE = DEFAULT_CAPACITY * 8;
@@ -55,7 +57,6 @@ public class CaffeineNodeCache implements NodeCache {
         		.maximumSize(maximumSize)
                 .expireAfterWrite(duration, unit)
                 .expireAfterAccess(duration, unit)
-                .refreshAfterWrite(duration, unit)
         		.evictionListener(new RemovalListener<Object, Object>() {
 
 					@Override

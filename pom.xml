@@ -170,10 +170,11 @@
                         </additionalClasspathElements>
                         <includes>
                             <include>**/*Test.java</include>
-                        <include>**/*_Test.java</include>
                         </includes>
                         <excludes>
                             <exclude>**/TestBean.java</exclude>
+                            <exclude>**/*_Test.java</exclude>
+                            <exclude>**/DemoApplicationTests.java</exclude>
                         </excludes>
                     </configuration>
                 </plugin>

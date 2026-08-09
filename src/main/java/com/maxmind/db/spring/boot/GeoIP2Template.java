@@ -24,7 +24,8 @@ import com.maxmind.geoip2.model.AnonymousIpResponse;
 import com.maxmind.geoip2.model.CityResponse;
 import com.maxmind.geoip2.model.CountryResponse;
 import com.maxmind.geoip2.record.*;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -32,9 +33,11 @@ import java.util.Optional;
 
 /**
  * GeoIP2 IP地址解析
+ * @author [@Loong Wan](https://github.com/loong10k)
  */
-@Slf4j
 public class GeoIP2Template {
+
+	private static final Logger log = LoggerFactory.getLogger(GeoIP2Template.class);
 
 	private static final String NOT_MATCH = "未分配或者内网IP|0|0|0|0";
 	private static final RegionAddress NOT_MATCH_REGION_ADDRESS = new RegionAddress(NOT_MATCH.split("\\|"));
