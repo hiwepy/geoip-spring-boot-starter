@@ -30,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * TODO
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  */
 @Slf4j
 public class GuavaNodeCache implements NodeCache {
