@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * GeoIP2 Configuration Properties
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  */
 @ConfigurationProperties(GeoIP2Properties.PREFIX)
 public class GeoIP2Properties {

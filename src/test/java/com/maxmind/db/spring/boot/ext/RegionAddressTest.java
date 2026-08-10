@@ -6,7 +6,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Unit tests for {@link RegionAddress}.
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  */
 class RegionAddressTest {
 

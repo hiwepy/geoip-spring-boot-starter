@@ -26,7 +26,7 @@ import static org.mockito.Mockito.when;
 
 /**
  * Unit tests for {@link GeoIP2Template}.
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  */
 @ExtendWith(MockitoExtension.class)
 class GeoIP2TemplateTest {
