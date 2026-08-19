@@ -32,6 +32,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Guava-based NodeCache implementation for MaxMind database.
  * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ * @since 1.0.0
  */
 public class GuavaNodeCache implements NodeCache {
 

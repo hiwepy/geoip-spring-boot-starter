@@ -3,6 +3,7 @@ package com.maxmind.db.spring.boot.ext;
 /**
  * Basic RegionAddress Info
  * @author 凡梦星尘(elkan1788@gmail.com)
+ * @since 1.0.0
  */
 public class RegionAddress {
 

@@ -23,6 +23,8 @@ import org.slf4j.LoggerFactory;
  * Region 国家地区枚举
  * http://doc.chacuo.net/iso-3166-1
  * https://en.wikipedia.org/wiki/ISO_3166-1
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ * @since 1.0.0
  */
 public enum RegionEnum {
 

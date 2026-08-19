@@ -34,6 +34,7 @@ import java.util.Optional;
 /**
  * GeoIP2 IP地址解析
  * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ * @since 1.0.0
  */
 public class GeoIP2Template {
 
