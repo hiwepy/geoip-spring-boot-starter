@@ -58,6 +58,10 @@ public class GuavaNodeCache implements NodeCache {
         		.removalListener(new RemovalListener<Object, Object>() {
 
 					@Override
+					/**
+					 * <p>On removal.</p>
+					 * @param notification
+					 */
 					public void onRemoval(RemovalNotification<Object, Object> notification) {
 						log.debug("Remove Cache : {}", notification.getKey());
 					}
@@ -69,6 +73,12 @@ public class GuavaNodeCache implements NodeCache {
 
 	@Override
     @SuppressWarnings("rawtypes")
+    /**
+     * <p>Get.</p>
+     * @param key
+     * @param loader
+     * @return the result
+     */
     public DecodedValue get(CacheKey key, Loader loader) throws IOException {
         Object value = cache.getIfPresent(key);
         if (value == null) {

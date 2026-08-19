@@ -60,6 +60,12 @@ public class CaffeineNodeCache implements NodeCache {
         		.evictionListener(new RemovalListener<Object, Object>() {
 
 					@Override
+					/**
+					 * <p>On removal.</p>
+					 * @param key
+					 * @param value
+					 * @param cause
+					 */
 					public void onRemoval(Object key, Object value, RemovalCause cause) {
 						log.debug("Remove Cache : {}", key);
 					}
@@ -70,6 +76,12 @@ public class CaffeineNodeCache implements NodeCache {
 
     @Override
     @SuppressWarnings("rawtypes")
+    /**
+     * <p>Get.</p>
+     * @param key
+     * @param loader
+     * @return the result
+     */
     public DecodedValue get(CacheKey key, Loader loader) throws IOException {
         Object value = cache.getIfPresent(key);
         if (value == null) {

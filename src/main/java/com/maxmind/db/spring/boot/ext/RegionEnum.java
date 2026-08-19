@@ -316,34 +316,42 @@ public enum RegionEnum {
 		this.currency = currency;
 	}
 
+	/** @return return the number. */
 	public String getNumber() {
 		return number;
 	}
 
+	/** @return return the code2. */
 	public String getCode2() {
 		return code2;
 	}
 
+	/** @return return the code3. */
 	public String getCode3() {
 		return code3;
 	}
 
+	/** @return return the iso code. */
 	public String getIsoCode() {
 		return iso_code;
 	}
 
+	/** @return return the iso name. */
 	public String getIsoName() {
 		return iso_name;
 	}
 
+	/** @return return the cname. */
 	public String getCname() {
 		return cname;
 	}
 
+	/** @return return the currency. */
 	public String getCurrency() {
 		return currency;
 	}
 
+	/** @return return the by number. */
 	public static RegionEnum getByNumber(String number) {
 		for (RegionEnum region : RegionEnum.values()) {
 			if (region.getNumber().equalsIgnoreCase(number)) {
@@ -354,6 +362,7 @@ public enum RegionEnum {
 		return RegionEnum.UK;
 	}
 
+	/** @return return the by code2. */
 	public static RegionEnum getByCode2(String code2) {
 		for (RegionEnum region : RegionEnum.values()) {
 			if (region.getCode2().equalsIgnoreCase(code2)) {
@@ -364,6 +373,7 @@ public enum RegionEnum {
 		return RegionEnum.UK;
 	}
 
+	/** @return return the by code3. */
 	public static RegionEnum getByCode3(String code3) {
 		for (RegionEnum region : RegionEnum.values()) {
 			if (region.getCode3().equalsIgnoreCase(code3)) {
@@ -374,6 +384,7 @@ public enum RegionEnum {
 		return RegionEnum.UK;
 	}
 
+	/** @return return the by iso code. */
 	public static RegionEnum getByIsoCode(String iso_code) {
 		for (RegionEnum region : RegionEnum.values()) {
 			if (region.getIsoCode().equalsIgnoreCase(iso_code)) {
@@ -384,6 +395,7 @@ public enum RegionEnum {
 		return RegionEnum.UK;
 	}
 
+	/** @return return the by iso name. */
 	public static RegionEnum getByIsoName(String iso_name) {
 		for (RegionEnum region : RegionEnum.values()) {
 			if (region.getIsoName().equalsIgnoreCase(iso_name)) {
@@ -394,6 +406,7 @@ public enum RegionEnum {
 		return RegionEnum.UK;
 	}
 
+	/** @return return the by cn name. */
 	public static RegionEnum getByCnName(String cn_name) {
 		for (RegionEnum region : RegionEnum.values()) {
 			if (region.getCname().equalsIgnoreCase(cn_name)) {
@@ -404,6 +417,7 @@ public enum RegionEnum {
 		return RegionEnum.UK;
 	}
 
+	/** @return return the by region address. */
 	public static RegionEnum getByRegionAddress(RegionAddress adress) {
 		for (RegionEnum region : RegionEnum.values()) {
 			if (region.getCname().equalsIgnoreCase(adress.getCountry()) ||

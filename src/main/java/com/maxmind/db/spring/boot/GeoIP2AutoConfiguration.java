@@ -23,17 +23,32 @@ import com.maxmind.geoip2.DatabaseReader;
 @Configuration
 @ConditionalOnClass(DatabaseReader.class)
 @EnableConfigurationProperties({ GeoIP2Properties.class })
+/**
+ * <p>Auto-configuration for GeoIP2AutoConfiguration.</p>
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ * @since 1.0.0
+ */
 public class GeoIP2AutoConfiguration {
 
 	protected ResourceLoader resourceLoader = new PathMatchingResourcePatternResolver();
 
 	@Bean
 	@ConditionalOnMissingBean
+	/**
+	 * <p>Node cache.</p>
+	 * @return the result
+	 */
 	public NodeCache nodeCache() {
 		return new CaffeineNodeCache();
 	}
 
 	@Bean
+	/**
+	 * <p>Geoip2 reader.</p>
+	 * @param nodeCache
+	 * @param properties
+	 * @return the result
+	 */
 	public DatabaseReader geoip2Reader(NodeCache nodeCache, GeoIP2Properties properties) throws FileNotFoundException, IOException {
 		// A File object pointing to your GeoIP2 or GeoLite2 database
 		File database = new File(properties.getLocation());
@@ -53,6 +68,11 @@ public class GeoIP2AutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
+	/**
+	 * <p>Geoip2 template.</p>
+	 * @param dbReader
+	 * @return the result
+	 */
 	public GeoIP2Template geoip2Template(DatabaseReader dbReader) {
 		return new GeoIP2Template(dbReader);
 	}

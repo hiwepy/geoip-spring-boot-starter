@@ -39,47 +39,61 @@ public class RegionAddress {
         this.ISP = ISP;
     }
 
+    /** @return return the country. */
     public String getCountry() {
         return country;
     }
 
+    /** @param country set the country. */
     public void setCountry(String country) {
         this.country = country;
     }
 
+    /** @return return the province. */
     public String getProvince() {
         return province;
     }
 
+    /** @param province set the province. */
     public void setProvince(String province) {
         this.province = province;
     }
 
+    /** @return return the city. */
     public String getCity() {
         return city;
     }
 
+    /** @param city set the city. */
     public void setCity(String city) {
         this.city = city;
     }
 
+    /** @return return the area. */
     public String getArea() {
         return area;
     }
 
+    /** @param area set the area. */
     public void setArea(String area) {
         this.area = area;
     }
 
+    /** @return return the i s p. */
     public String getISP() {
         return ISP;
     }
 
+    /** @param ISP set the i s p. */
     public void setISP(String ISP) {
         this.ISP = ISP;
     }
 
     @Override
+    /**
+     * <p>To string.</p>
+     * @return the result
+     */
     public String toString() {
         return "RegionAddress{" +
                 "country='" + country + '\'' +

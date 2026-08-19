@@ -7,6 +7,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @author <a href="https://github.com/loong10k">Loong Wan</a>
  */
 @ConfigurationProperties(GeoIP2Properties.PREFIX)
+/**
+ * <p>Auto-configuration for GeoIP2Properties.</p>
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ * @since 1.0.0
+ */
 public class GeoIP2Properties {
 
 	public static final String PREFIX = "geoip2";
@@ -14,10 +19,12 @@ public class GeoIP2Properties {
 	/** GeoIP2 or GeoLite2 Database Location */
 	private String location = "classpath:GeoLite2-Country.mmdb";
 
+	/** @return return the location. */
 	public String getLocation() {
 		return location;
 	}
 
+	/** @param location set the location. */
 	public void setLocation(String location) {
 		this.location = location;
 	}

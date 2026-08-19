@@ -152,10 +152,12 @@ public class GeoIP2Template {
 		return response;
 	}
 
+    /** @return return the location. */
     public Location getLocation(String ipAddress) throws Exception {
         return this.getLocation(ipAddress);
     }
 
+	/** @return return the location. */
 	public Location getLocation(InetAddress ipAddress) throws Exception {
 
 		log.info(" ================= Location Info For : {} ====================", ipAddress.toString());
@@ -170,6 +172,7 @@ public class GeoIP2Template {
 		return location;
 	}
 
+	/** @return return the region address. */
 	public RegionAddress getRegionAddress(String ip) {
 		try {
 
@@ -205,6 +208,7 @@ public class GeoIP2Template {
 		}
 	}
 
+	/** @return return the region by ip. */
 	public RegionEnum getRegionByIp(String ip) {
 		try {
 			if(!IpUtils.isIpv4(ip)){
@@ -228,6 +232,7 @@ public class GeoIP2Template {
 		}
 	}
 
+	/** @return return whether mainland ip is enabled. */
 	public boolean isMainlandIp(String ip) {
 		RegionEnum regionEnum = this.getRegionByIp(ip);
 		return RegionEnum.CN.compareTo(regionEnum) == 0 &&
